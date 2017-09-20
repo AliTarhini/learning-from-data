@@ -22,7 +22,14 @@
     [e] c min and c rand
   */
 
-// nu 1, nu rand, nu min 对应的 mu 1, mu rand, mu min 应该是 0.5, 0.5, 0
+/**
+  * nu 1, nu rand, nu min 对应的 mu 1, mu rand, mu min 应该是 0.5, 0.5, 0
+  *
+  * My answer:
+  * 1. b
+  * 2. d （这个确实是如此，因为nu min是人为刻意挑选的，违背了Hoeffding Inequality的随机挑选的原则）
+   */
+
 
 object Hw2 {
 
