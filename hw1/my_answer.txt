@@ -1,0 +1,8 @@
+1. d
+2. a
+3. e
+4. (1 - 0.55) ^ 10 = 3.405062891601559E-4
+   b
+5. b
+6. makes no difference between the outside data D
+   e

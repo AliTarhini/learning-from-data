@@ -1,3 +1,5 @@
+import scala.util._
+
 /**
   * Run a computer simulation for flipping 1,000 virtual fair coins. Flip each coin inde-
     pendently 10 times. Focus on 3 coins as follows: c 1 is the first coin flipped, c rand is a
@@ -33,7 +35,7 @@
 
 object Hw2 {
 
-  private val r = new scala.util.Random
+  private val r = new Random
 
   def main(args: Array[String]) = {
     val nuSum = (0 until 100000).foldLeft((0d, 0d, 0d)){ case(sum, _) =>

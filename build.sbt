@@ -8,4 +8,5 @@ libraryDependencies ++= {
   )
 }
 
-lazy val hw2 =  project.in(file("hw2"))
+lazy val hw1 = project.in(file("hw1"))
+lazy val hw2 = project.in(file("hw2"))
