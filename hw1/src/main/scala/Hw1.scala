@@ -53,8 +53,6 @@ to converge for N = 100 training points? Pick the value closest to your results.
 
 object Hw1 {
 
-  private val r = new Random
-
   // String got something wrong, but don't know why!!
   def main(args: Array[String]) = {
     val n = 10
@@ -87,13 +85,13 @@ object Hw1 {
   }
 
   private def generateLine(): (Double, Double) => Int= {
-    val a1 = -1 + r.nextDouble()
-    val a2 = -1 + r.nextDouble()
-    val b1 = -1 + r.nextDouble()
-    val b2 = -1 + r.nextDouble()
+    val a1 = -1 + Random.nextDouble()
+    val a2 = -1 + Random.nextDouble()
+    val b1 = -1 + Random.nextDouble()
+    val b2 = -1 + Random.nextDouble()
 
-    val y1 = -1 + r.nextDouble()
-    val y2 = -1 + r.nextDouble()
+    val y1 = -1 + Random.nextDouble()
+    val y2 = -1 + Random.nextDouble()
 
     (x: Double, y: Double) => {
       // My line:
@@ -110,8 +108,8 @@ object Hw1 {
 
   private def generatePoints(f: (Double, Double) => Int, n: Int): List[(Double, Double, Int)] = {
     (0 until n).map { _ =>
-      val x1 = -1 + r.nextDouble()
-      val x2 = -1 + r.nextDouble()
+      val x1 = -1 + Random.nextDouble()
+      val x2 = -1 + Random.nextDouble()
 
       (x1, x2, f(x1, x2))
     }.toList
@@ -139,8 +137,8 @@ object Hw1 {
 
   private def calcErrorProbability(f: (Double, Double) => Int, g: (Double, Double, Double)): Double = {
     val errorSize = (0 until 10000).foldLeft(0) { case(s, _) =>
-      val x1 = -1 + r.nextDouble()
-      val x2 = -1 + r.nextDouble()
+      val x1 = -1 + Random.nextDouble()
+      val x2 = -1 + Random.nextDouble()
 
       val fRes = f(x1, x2)
       val gRes = x1 * g._1 + x2 * g._2 + g._3

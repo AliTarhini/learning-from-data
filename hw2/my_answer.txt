@@ -1,0 +1,5 @@
+1. b
+2. d （这个确实是如此，因为nu min是人为刻意挑选的，违背了Hoeffding Inequality的随机挑选的原则）
+3. e
+4. a, d (correct answer: b. 0.5 is a correct answer, but I don't know why 0 & 1 is not correct?)
+
