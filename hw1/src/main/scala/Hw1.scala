@@ -51,86 +51,104 @@ to converge for N = 100 training points? Pick the value closest to your results.
 [e] 0.8
   */
 
-// Got trouble in getting f by 2 points
-
 object Hw1 {
 
   private val r = new Random
 
-  // It wrong!!
+  // String got something wrong, but don't know why!!
   def main(args: Array[String]) = {
     val n = 10
-    val error = (0 until 1000).foldLeft(0d){ case(s, _) =>
+    val (iter, error) = (0 until 1000).foldLeft((0d, 0d)){ case((i, e), _) =>
       val f = generateLine()
       val points = generatePoints(f, n)
-      var g = (0d, 0d)
-      points.foreach { p =>
-        g = plaOneTime(g, p)
+      var g = (0d, 0d, 0d)
+      var (gFound, tryCount) = (false, 0)
+
+      while (!gFound && tryCount < 10000) {
+        points.foreach { p =>
+          g = plaOneTime(g, p)
+        }
+
+        if (isMatched(g, points)) {
+          gFound = true
+        }
+
+        tryCount += 1
       }
 
-      s + calcErrorProbablity(f, g)
+      val p = calcErrorProbability(f, g)
+
+      println("One learnging: " + tryCount + ", " + p)
+
+      (i + tryCount, e + p)
     }
 
-    println(error /  1000)
+    println("Result: " + iter / 1000 + ", " + error /  1000)
   }
 
-  private def generateLine(): (Double, Double, Double) = {
-    val x11 = -1 + r.nextDouble()
-    val x12 = -1 + r.nextDouble()
-    val x21 = -1 + r.nextDouble()
-    val x22 = -1 + r.nextDouble()
+  private def generateLine(): (Double, Double) => Int= {
+    val a1 = -1 + r.nextDouble()
+    val a2 = -1 + r.nextDouble()
+    val b1 = -1 + r.nextDouble()
+    val b2 = -1 + r.nextDouble()
 
     val y1 = -1 + r.nextDouble()
     val y2 = -1 + r.nextDouble()
 
-    (x11 + x21, x12 + x22, y1 + y2)
+    (x: Double, y: Double) => {
+      // My line:
+      val myLine = a2 * x - b2 * x + a1 * b2 - a2 * b1 - a1 * y + b1 * y
+      // better line
+      val betterLine = (x - a1) / (a2 - a1) - (y - b1) / (b2 - b1)
+      if (betterLine >= 0) {
+        1
+      } else {
+        -1
+      }
+    }
   }
 
-  private def generatePoints(f: (Double, Double, Double), n: Int): List[(Double, Double, Int)] = {
+  private def generatePoints(f: (Double, Double) => Int, n: Int): List[(Double, Double, Int)] = {
     (0 until n).map { _ =>
       val x1 = -1 + r.nextDouble()
       val x2 = -1 + r.nextDouble()
 
-      val res = x1 * f._1 + x2 * f._2 + f._3
-      val y = if (res > 0) 1 else -1
-
-      (x1, x2, y)
+      (x1, x2, f(x1, x2))
     }.toList
   }
 
-  // w0 == 0, so g only has w1 & w2 for x1 & x2
-  private def plaOneTime(g: (Double, Double), x: (Double, Double, Int)): (Double, Double) = {
-    val res = g._1 * x._1 + g._2 * x._2
-    val y = if (res > 0) 1 else -1
+  private def plaOneTime(g: (Double, Double, Double), x: (Double, Double, Int)): (Double, Double, Double) = {
+    val res = g._1 * x._1 + g._2 * x._2 + g._3 * x._3
+    val y = if (res >= 0) 1 else -1
 
     if (y == x._3) {
       g
     } else {
-      (g._1 + y * x._1, g._2 + x._2)
+      (g._1 + y * x._1, g._2 + y * x._2, g._3 + y * x._3)
     }
   }
 
-  private def isMatched(g: (Double, Double), points: List[(Double, Double, Int)]): Boolean = {
-    points.exists { p => !isMatched(g, p) }
+  private def isMatched(g: (Double, Double, Double), points: List[(Double, Double, Int)]): Boolean = {
+    points.forall(p => isMatched(g, p))
   }
 
-  private def isMatched(g: (Double, Double), point: (Double, Double, Int)): Boolean = {
-    val gRes = point._1 * g._1 + point._2 * g._2
+  private def isMatched(g: (Double, Double, Double), point: (Double, Double, Int)): Boolean = {
+    val gRes = point._1 * g._1 + point._2 * g._2 + point._3 * g._3
     gRes.signum == point._3.signum
   }
 
-  private def calcErrorProbablity(f: (Double, Double, Double), g: (Double, Double)): Double = {
+  private def calcErrorProbability(f: (Double, Double) => Int, g: (Double, Double, Double)): Double = {
     val errorSize = (0 until 10000).foldLeft(0) { case(s, _) =>
       val x1 = -1 + r.nextDouble()
       val x2 = -1 + r.nextDouble()
 
-      val fRes = x1 * f._1 + x2 * f._2 + f._3
-      val gRes = x1 * g._1 + x2 * g._2
+      val fRes = f(x1, x2)
+      val gRes = x1 * g._1 + x2 * g._2 + g._3
 
       if (fRes.signum == gRes.signum) s else s + 1
     }
 
-    errorSize / 10000
+    errorSize / 10000d
   }
 
 
