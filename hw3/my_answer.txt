@@ -1,0 +1,21 @@
+1. b 
+   N <= ln(0.03 / 2) / (-2) / 0.05^2
+2. c
+   N <= ln(0.03 / 2 / 10) / (-2) / 0.05^2
+3. d
+   N <= ln(0.03 / 2 / 100) / (-2) / 0.05^2
+4. b
+   three points make a plane, and if two more points in this space, will make the break point.
+5. e
+   correct: b. Should be a polynomial!! 
+6. c
+   C(N+1, 2) + C(N+1, 2)
+7. d
+   cause break point is 5
+8. 
+
+9. 
+
+10. b
+   just like in one dimension choose interval
+
