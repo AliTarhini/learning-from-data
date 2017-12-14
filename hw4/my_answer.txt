@@ -1,0 +1,24 @@
+1. N >= 8 / epislon^2 * ln((4(2N)^dvc + 1) / delta)
+
+=> N >= 8 / 0.05^2 * ln((4(2N)^10 + 1 / 0.05)
+
+   1) try with N = 1000, get 257251.3643
+   2) try with N = 257251, get 434853.036
+   3) iterate...
+   4) converge to 452956
+
+   choose d)
+
+2. a) 0.63217
+   b) 0.34168
+   c) converge to 0.231318
+   d) converge to 0.214718
+
+   choose d)
+
+3. a) 13.82816
+   b) 1.447918
+   c) converge to 5.1013
+   d) converge to 5.5839
+
+   choose b)
