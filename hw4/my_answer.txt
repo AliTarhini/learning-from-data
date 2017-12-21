@@ -22,3 +22,17 @@
    d) converge to 5.5839
 
    choose b)
+   correct c)
+   ** explain:
+      When N < d_vc, so m_h(N) is not N^d_vc any more, cause C(x N) = 0 when x > N
+
+
+8. c)
+   cause C(q q) = 1
+   so growth function become 2^(N+1) - 2
+
+9. b)
+
+10. d)
+    correct answer e)
+    ** try to explain: K - 1 means one more points of H_i can be shatter by another H_j?
